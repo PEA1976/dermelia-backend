@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 import keras
 import numpy as np
@@ -5,7 +6,7 @@ from PIL import Image
 
 app = Flask(__name__)
 
-MODELO_PATH = r"D:\ProyectoLunares\modelo_final.keras"
+MODELO_PATH = "modelo_final.keras"
 
 print("Cargando modelo Dermelia...")
 
@@ -82,6 +83,6 @@ def predecir():
             "error": "No se pudo analizar la imagen."
         }), 500
 
-
 if __name__ == "__main__":
-    app.run(debug=False)
+    puerto = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=puerto, debug=False)
